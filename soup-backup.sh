@@ -23,7 +23,7 @@ directory. This script requires wget and xsltproc.
   exit
 fi
 
-set -e
+#set -e
 SAVEDIR=.
 EXPORTURL="$1"
 
@@ -50,7 +50,7 @@ cd "$SAVEDIR"
 if  test -s backup.rss; then
  echo "ooops. backup.rss already exists"
  echo "please remove or rename"
- echo "exit"
+ echo "exiting..."
  exit 1
 fi 
 
@@ -64,23 +64,23 @@ for a in `seq 1 4`; do
     #wget -O backup.rss  "$EXPORTURL"
 
     if [ $? -eq 0 ]; then
-  	echo "Download successfull"
+  	echo "Download successful"
   	break
     fi    
 
-    echo "Download faild."
+    echo "Download failed."
     if [ $a -eq 4 ]; then
 	echo "Giving up"
 	exit 1
     else
-        echo "Retry..."
+        echo "Retrying..."
     fi    
 done
 
 
 
 if ! test -s backup.rss; then
-echo "oops. something wrong:" >&2
+echo "oops. something went wrong:" >&2
   ls -l backup.rss >&2
   exit 1
 fi
